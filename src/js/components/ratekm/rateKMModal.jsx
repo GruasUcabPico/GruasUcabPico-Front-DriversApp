@@ -9,7 +9,7 @@ const RateKMModal = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const rateData = [
+    const localRateData = [
         { id: 1, coverageRadius: 10, priceKM: 5 },
         { id: 2, coverageRadius: 20, priceKM: 4.5 },
         { id: 3, coverageRadius: 30, priceKM: 4 },
@@ -28,7 +28,7 @@ const RateKMModal = () => {
                     console.error('There was an error fetching the data!', error);
                 });
             */
-           setData(rateData);
+           setData(localRateData);
         }
     }, [show]);
 

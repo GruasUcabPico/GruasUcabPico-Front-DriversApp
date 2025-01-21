@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
+import axios from 'axios';
+
+import AlertFailedToAddExtraCost from '../alerts/alertFailedToAddExtraCost';
 
 const AddExtraCostModal = () => {
     const [show, setShow] = useState(false);
@@ -14,8 +17,17 @@ const AddExtraCostModal = () => {
         e.preventDefault();
         const extraCost = { name, price, description };
         console.log(extraCost);
+
         // Add your logic to handle the extraCost object here
-        handleClose();
+        axios.post('http://localhost:2053/api/ExtraCost', extraCost)
+          .then(function (response) {
+            console.log(response);
+            handleClose();
+          })
+          .catch(function (error) {
+            console.log(error);
+            return <AlertFailedToAddExtraCost />;
+          });
     };
 
     return (

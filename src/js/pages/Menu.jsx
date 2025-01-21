@@ -5,11 +5,7 @@ import axios from 'axios';
 
 const Menu = ({ orders }) => {
 
-    axios.get('/orders', {
-        params: {
-          ID: 12345
-        }
-      })
+    axios.get('http://localhost:10003/api/orders')
       .then(function (response) {
         console.log(response);
       })

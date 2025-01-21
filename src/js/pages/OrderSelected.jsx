@@ -1,10 +1,12 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button, Table, Accordion } from 'react-bootstrap';
 import {APIProvider, Map, Marker} from '@vis.gl/react-google-maps';
+import axios from 'axios';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+
 import RateKMModal from '../components/ratekm/rateKMModal';
 import AddExtraCostModal from '../components/extracost/addExtraCostModal';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import AlertCanceledOrder from '../components/alertCanceledOrder';
+import AlertCanceledOrder from '../components/alerts/alertCanceledOrder';
 
 const OrderSelected = () => {
 
@@ -39,6 +41,19 @@ const OrderSelected = () => {
         navigate("/");
         return <AlertCanceledOrder />;
     };
+
+    axios.get('http://localhost:2053/api/ExtraCost/GetExtraCosts')
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      }); 
+
+      //axios get de los detalles de la orden
 
     return (
         <Container className="mt-2">
