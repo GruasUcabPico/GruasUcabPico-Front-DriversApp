@@ -15,9 +15,9 @@ import '../styles/index.css'
 import Home from './pages/Home';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <BrowserRouter>
+    <React.StrictMode>
       <Home/>
-    </BrowserRouter>
+    </React.StrictMode>
 )
 
 /*

@@ -2,23 +2,29 @@ import React from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-//import { useSignIn } from 'react-auth-kit';
+import useSignIn from 'react-auth-kit/hooks/useSignIn';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
-    const response = {
-        data: { token: 'random-token', }
-    };
-    //const signIn = useSignIn();
+
+    const signIn = useSignIn();
+    const navigate = useNavigate();
     const handleSubmit = async (values) => {
-        console.log(values);
-        /*
-        signIn({
-            token: response.data.token,
-            expiresIn: 2400,
-            tokenType: 'Bearer',
-            authState: { email: values.email },
-        })
-        */
+        try {
+            const response = await axios.post('http://localhost:9053/api/users/login', values);
+            
+            signIn({
+              auth: {
+                token: response.data.token,
+              },
+              userState: {name: values.email, uid: 123456}
+            })
+            navigate("/menu");
+          } catch (error) {
+            
+            console.error('Error en login:', error);
+          }
     };
 
     const validationSchema = Yup.object().shape({

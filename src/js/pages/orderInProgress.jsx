@@ -13,10 +13,12 @@ const OrderInProgress = () => {
             contract: "Contract A",
             driverAssigned: "Driver 1",
             operator: "Operator 1",
-            incidentLocationLat: 53.54992,
-            incidentLocationLng: 10.00678,
-            destinationLocationLat: 53.54292,
-            destinationLocationLng: 10.10678,
+            startLocationLat: 10.4627,
+            startLocationLng: -66.9759,
+            incidentLocationLat: 10.4527,
+            incidentLocationLng: -66.9059,
+            destinationLocationLat: 10.4833,
+            destinationLocationLng: -66.8666,
             incidentDateTime: "2023-10-01T10:00:00Z",
             totalCost: 1000,
             extraCostApplied: 50,
@@ -29,13 +31,14 @@ const OrderInProgress = () => {
             <Row className="justify-content-center">
                 <APIProvider apiKey={'AIzaSyCBZK2rXSKMDn9vM9d7f9LJ4G-MHwywJW4'}>
                     <Map
-                        style={{width: '90%', height: '250px'}}
-                        defaultCenter={{lat: order.incidentLocationLat, lng: order.incidentLocationLng}}
-                        defaultZoom={10}
-                        gestureHandling={'greedy'}
-                        disableDefaultUI={true}>
-                        <Marker position={{lat: order.incidentLocationLat, lng: order.incidentLocationLng}} label="Incident Location" />
-                        <Marker position={{lat: order.destinationLocationLat, lng: order.destinationLocationLng}} label="Destination Location" />
+                    style={{width: '90%', height: '250px'}}
+                    defaultCenter={{lat: (order.startLocationLat + order.destinationLocationLat)/2, lng: (order.startLocationLng + order.destinationLocationLng)/2}}
+                    defaultZoom={12}
+                    gestureHandling={'greedy'}
+                    disableDefaultUI={true}>
+                        <Marker position={{lat: order.startLocationLat, lng: order.startLocationLng}} label="Punto de partida" />
+                        <Marker position={{lat: order.incidentLocationLat, lng: order.incidentLocationLng}} label="Punto del incidente" />
+                        <Marker position={{lat: order.destinationLocationLat, lng: order.destinationLocationLng}} label="Punto de llegada" />
                     </Map>
                 </APIProvider>
             </Row>

@@ -1,6 +1,8 @@
 import React from "react";
-import { Route, Routes, NavLink } from 'react-router-dom';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
+import createStore from 'react-auth-kit/createStore';
+import AuthProvider from "react-auth-kit";
 
 import Menu from "./Menu";
 import OrderSelected from "./OrderSelected";
@@ -12,11 +14,12 @@ import Login from "./Login";
 //create your first component
 const Home = () => {
 
-	const instance = axios.create({
-		baseURL: 'https://localhost',
-		timeout: 1000,
-		headers: {'X-Custom-Header': 'foobar'}
-	  });
+	const store = createStore({
+	  authName:'_auth',
+	  authType:'cookie',
+	  cookieDomain: window.location.hostname,
+	  cookieSecure: false,
+	});
 
 	const orders = [
 		{
@@ -24,10 +27,10 @@ const Home = () => {
 			contract: "Contract A",
 			driverAssigned: "Driver 1",
 			operator: "Operator 1",
-			incidentLocationLat: 53.54992,
-			incidentLocationLng: 10.00678,
-			destinationLocationLat: 54.54992,
-			destinationLocationLng: 10.10678,
+			incidentLocationLat: 10.4627,
+			incidentLocationLng: -66.9759,
+			destinationLocationLat: 10.4527,
+			destinationLocationLng: -66.9659,
 			incidentDateTime: "2023-10-01T10:00:00Z",
 			totalCost: 1000,
 			extraCostApplied: 50,
@@ -66,16 +69,18 @@ const Home = () => {
 		}
 	];
 	return (
-		<>
-			<Routes>
-				<Route index element={ <Menu orders={orders}/>} />
-				<Route path="/orderSelected/:orderId" element={<OrderSelected />} />
-				<Route path="/orderInProgress/:orderId" element={<OrderInProgress />} />
-				<Route path="/orderFinished/:orderID" element={<OrderFinished />} />
-				<Route path="/orderCanceled/:orderID" element={<OrderCanceled />} />
-				<Route path="/login" element={<Login />} />
-			</Routes>
-		</>
+		<AuthProvider store={store}>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/menu" element={ <Menu orders={orders}/>} />
+					<Route path="/orderSelected/:orderId" element={<OrderSelected />} />
+					<Route path="/orderInProgress/:orderId" element={<OrderInProgress />} />
+					<Route path="/orderFinished/:orderID" element={<OrderFinished />} />
+					<Route path="/orderCanceled/:orderID" element={<OrderCanceled />} />
+					<Route index element={<Login />} />
+				</Routes>
+			</BrowserRouter>
+		</AuthProvider>
 	);
 };
 

@@ -12,7 +12,7 @@ const OrderCanceled = () => {
             </Row>
             <Row className="mt-4">
                 <Col>
-                    <Link to="/">
+                    <Link to="/menu">
                         <Button variant="primary">
                             Volver al menú
                         </Button>

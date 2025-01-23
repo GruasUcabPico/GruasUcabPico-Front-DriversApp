@@ -13,14 +13,15 @@ const OrderFinished = ({ ratePerKM, extraCosts, total }) => {
             <Row className="mt-4">
                 <Col>
                     <h4>Factura</h4>
-                    <p>Tarifa por KM: ${ratePerKM}</p>
-                    <p>Costos extra: ${extraCosts}</p>
-                    <p>Total: ${total}</p>
+                    <p>Tarifa por KM: $3</p>
+                    <p>Kms recorridos: 25</p>
+                    <p>Costos extra: $30</p>
+                    <p>Total: $105</p>
                 </Col>
             </Row>
             <Row className="mt-4">
                 <Col>
-                    <Link to="/">
+                    <Link to="/menu">
                         <Button variant="primary">
                             Volver al menú
                         </Button>
